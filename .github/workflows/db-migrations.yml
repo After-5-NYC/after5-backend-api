@@ -7,6 +7,11 @@ on:
       - 'prisma/migrations/**'
       - 'prisma/schema.prisma'
 
+      
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   migrate:
     runs-on: ubuntu-latest
