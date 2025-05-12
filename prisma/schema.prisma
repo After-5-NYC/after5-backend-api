@@ -14,7 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Event model
 model Event {
   id          String       @id @default(uuid())
   title       String
