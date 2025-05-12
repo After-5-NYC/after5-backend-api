@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -15,8 +15,17 @@ COPY . .
 # Build TypeScript code
 RUN npm run build
 
+# Generate Prisma Client
+RUN npx prisma generate
+
+# Run migrations
+RUN npx prisma migrate deploy
+
+# Seed the database
+RUN npx prisma db seed
+
 # Production stage
-FROM node:20-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -24,7 +33,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install production dependencies only
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
