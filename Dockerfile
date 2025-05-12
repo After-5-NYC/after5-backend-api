@@ -18,12 +18,6 @@ RUN npm run build
 # Generate Prisma Client
 RUN npx prisma generate
 
-# Run migrations
-RUN npx prisma migrate deploy
-
-# Seed the database
-RUN npx prisma db seed
-
 # Production stage
 FROM node:18-alpine
 
