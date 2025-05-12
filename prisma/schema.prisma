@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+// Event model
 model Event {
   id          String       @id @default(uuid())
   title       String
@@ -26,6 +26,7 @@ model Event {
   EventVenue  EventVenue[]
 }
 
+// Venue model
 model Venue {
   id            String       @id @default(uuid())
   name          String
@@ -38,6 +39,7 @@ model Venue {
   EventVenue    EventVenue[]
 }
 
+// EventVenue model
 model EventVenue {
   id      String @id @default(uuid())
   eventId String
